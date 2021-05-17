@@ -6,3 +6,4 @@ The below modules should be deployed in /modules
 - [Hogan](https://github.com/scriptrdotio/hogan)
 - [momentjs](https://github.com/scriptrdotio/moment)
 - [underscore](https://github.com/scriptrdotio/underscore)
+- [UIComponents](https://github.com/scriptrdotio/UIComponents)
