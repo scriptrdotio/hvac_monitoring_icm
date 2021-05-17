@@ -1,0 +1,41 @@
+var log = require("log");
+log.setLevel("info");
+
+
+/*
+ * example: parse("3009.91002N", "09750.56782W"); 30 = degree, 091002 = minutes, 097 = degrees, 50.56782 = minutes
+ * @param {String} latDMS: ddmm.mmmmN/S
+ * @param {String} lonDMS: dddmm.mmmmE/W
+ * @return {Object} {lat, lon} in degrees
+ * if invalid format, logs an error and return {lat:0, lon:0}
+ */
+function parse(latDMS, lonDMS) {
+
+    try {
+        return {
+            lat: parseLat(latDMS),
+            lon: parseLon(lonDMS)
+        };
+    }catch(error){
+        log.error("Did not receive DMS coordinates in expected format (ddmm.mmmmN/S,dddmm.mmmmE/W)\n" + JSON.stringifyerror);
+        return {lat:0, lon:0}
+    }
+}
+
+function parseLat(latDMS){
+
+    var degrees = Number(latDMS.substring(0, 2)); 
+    var minutes = Number(latDMS.substring(2, latDMS.length - 1));
+    var direction = latDMS.charAt(latDMS.length - 1);
+    var decimal = (degrees + (minutes / 60)) * (direction == 'N' ? 1 : -1);
+    return decimal;
+}
+
+function parseLon(lonDMS){
+
+    var degrees = Number(lonDMS.substring(0, 3)); 
+    var minutes = Number(lonDMS.substring(3, lonDMS.length - 1));
+    var direction = lonDMS.charAt(lonDMS.length - 1);
+    var decimal = (degrees + (minutes / 60)) * (direction == 'E' ? 1 : -1);
+    return decimal;
+}
