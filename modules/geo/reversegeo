@@ -1,0 +1,34 @@
+var http = require("http");
+
+var url = "https://trueway-geocoding.p.rapidapi.com/ReverseGeocode";
+var apiKey = "d7a2841f98msh68ef31b89687e4cp134c75jsn017e6621d6ad";
+
+function getAddressFromLocation(lat, lon) {
+	
+    if (!lat || !lon){
+        return {};
+    }
+    
+    var reqParams = {
+        url: url,
+        headers: {
+            "x-rapidapi-key": apiKey,
+			"x-rapidapi-host": "trueway-geocoding.p.rapidapi.com",
+			"useQueryString": "true"
+        },
+        params: {
+            "location": lat + "," + lon
+        }
+    };
+    
+    var resp = http.request(reqParams);
+    if (resp.status == "200") {
+        
+        var body = JSON.parse(resp.body);
+        if (body.results) {
+            return body.results[0];
+        }
+    }
+    
+    return {}
+}
