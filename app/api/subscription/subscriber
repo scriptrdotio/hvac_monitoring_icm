@@ -39,8 +39,8 @@ if (!inputData.gps && inputData.lat) {
     inputData["gps"] = {};
     var simpledms = require("/modules/dms/simpledms");
     var latlon = simpledms.parse(inputData.lat, inputData.long);
-    inputData.gps["lat"] = latlon.lat;
-    inputData.gps["long"] = latlon.lon;
+    inputData.lat = latlon.lat;
+    inputData.lon = latlon.lon;
 }
 
 var deviceMapper = require(config.mapper);
